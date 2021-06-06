@@ -1,0 +1,18 @@
+{% load static %}
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>
+        {% block title %}{% endblock %}
+    </title>
+    <link rel="stylesheet" type="text/css" href="{% static 'survey_app/css/semantic.min.css' %}">
+
+</head>
+
+<body>
+    {% block content %}{% endblock %}
+</body>
+
+</html>

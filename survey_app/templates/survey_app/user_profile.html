@@ -1,0 +1,144 @@
+{% extends 'survey_app/base.html' %}
+{% block main %}
+
+{% if user.is_authenticated %}
+
+<div class="container">
+    <div class="main-body">
+    
+          <div class="row gutters-sm">
+            <div class="col-md-4 mb-3">
+              <div class="card">
+                <div class="card-body">
+                  <div class="d-flex flex-column align-items-center text-center">
+                    <img class="rounded-circle" src="{{ request.user.profile.image.url }}" width="150px" height = "150px">
+                    <div class="mt-2">
+                      <h4>{{ request.user }}</h4>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <br>
+              <div class="card" style="200px;">
+  <div class="card-body">
+    <h5 class="card-title"><b>User Interests</b></h5>
+    <p class="card-text">Sports: {{ request.user.user_interests.sports }}
+      <br>Music: {{ request.user.user_interests.music }}
+      <br>Science: {{ request.user.user_interests.science }}
+      </p>
+    <a href="{% url 'user_interest_update' request.user.pk %}" class="btn btn-outline-success">Edit Interest</a>
+  </div>
+</div>
+            </div>
+            
+            <div class="col-md-8">
+              <div class="card mb-3">
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <h6 class="mb-0">Email</h6>
+                    </div>
+                    <div class="col-sm-9 text-primary">
+                      <b>{{ request.user.email }}</b>
+                    </div>
+                  </div>
+                  <hr>
+                  {% if request.user.profile.bio %}
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <h6 class="mb-0">About</h6>
+                    </div>
+                    <div class="col-sm-9 text-primary">
+                    	<b>{{ request.user.profile.bio }}</b>
+                    </div>
+                  </div> 
+                  <hr>
+                  {% endif %}
+                  {% if request.user.profile.website_url %}
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <h6 class="mb-0">Website</h6>
+                    </div>
+                    <div class="col-sm-9 text-secondary">
+                    	<a href="{{ request.user.profile.website_url }}"><b>{{ request.user.profile.website_url }}</b></a>
+                    </div>
+                  </div> 
+                  <hr>
+                  {% endif %}
+                   {% if request.user.profile.instagram_url %}
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <h6 class="mb-0">Instagram</h6>
+                    </div>
+                    <div class="col-sm-9 text-secondary">
+                    	<a href="{{ request.user.profile.instagram_url }}"><b>{{ request.user.profile.instagram_url }}</b></a>
+                    </div>
+                  </div>
+                  
+                  <hr>
+                  {% endif %}
+                  {% if request.user.profile.github_url %}
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <h6 class="mb-0">Github</h6>
+                    </div>
+                    <div class="col-sm-9 text-secondary">
+                    	<a href="{{ request.user.profile.github_url }}"><b>{{ request.user.profile.github_url }}</b></a>
+                    </div>
+                  </div>
+                  
+                  <hr>
+                  {% endif %}
+                  {% if request.user.profile.linkedin_url %}
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <h6 class="mb-0">Linkedin</h6>
+                    </div>
+                    <div class="col-sm-9 text-secondary">
+                    	<a href="{{ request.user.profile.linkedin_url }}"><b>{{ request.user.profile.linkedin_url }}</b></a>
+                    </div>
+                  </div>
+                  
+                  <hr>
+                  {% endif %}
+                  {% if request.user.profile.twitter_url %}
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <h6 class="mb-0">Twitter</h6>
+                    </div>
+                    <div class="col-sm-9 text-secondary">
+                    	<a href="{{ request.user.profile.twitter_url }}"><b>{{ request.user.profile.twitter_url }}</b></a>
+                    </div>
+                  </div>
+                  
+                  <hr>
+                  {% endif %}
+                  {% if request.user.profile.facebook_url %}
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <h6 class="mb-0">Facebook</h6>
+                    </div>
+                    <div class="col-sm-9 text-secondary">
+                    	<a href="{{ request.user.profile.facebook_url }}"><b>{{ request.user.profile.facebook_url }}</b></a>
+                    </div>
+                  </div>
+                  <hr>
+                  {% endif %}
+                  <div class="row">
+                    <div class="col-sm-12">
+                      <a class="btn btn-outline-success" href="{% url 'profile' %}">Edit Profile</a>
+                      &nbsp;<a class="btn btn-outline-success" href="{% url 'change-password' %}">Change Password</a>
+                      <br><br>
+                      <a class="btn btn-outline-success" href="{% url 'account_delete' request.user.pk %}">Delete Account</a>
+                    </div>
+                  </div>
+                  
+                </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>
+<br>
+{% endif %}
+{% endblock main %}

@@ -1,0 +1,118 @@
+{% extends "survey_app/removed_urls.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+
+
+<form method = "POST" action="">
+    {% csrf_token %}
+  <div class="register-container">
+    <h2>Verification</h2>
+    <hr>
+
+    {{form|crispy}}
+    <!--
+    <label for="number"><b>Code*</b></label>
+    {{form.number}}
+    {% for field in form %}
+    {{field.help_text}}
+    {% endfor %}
+    -->
+
+    <hr>
+  
+    <button type="submit" class="registerbtn">Verify</button>
+  </div>
+
+</form>
+<!--
+<div>Time left = <span id="timer"></span></div>
+
+<script>
+let timerOn = true;
+
+function timer(remaining) {
+  var m = Math.floor(remaining / 60);
+  var s = remaining % 60;
+  
+  m = m < 10 ? '0' + m : m;
+  s = s < 10 ? '0' + s : s;
+  document.getElementById('timer').innerHTML = m + ':' + s;
+  remaining -= 1;
+  
+  if(remaining >= 0 && timerOn) {
+    setTimeout(function() {
+        timer(remaining);
+    }, 1000);
+    return;
+  }
+
+  function sleep(milliseconds) {
+	let timeStart = new Date().getTime();
+	while (true) {
+	let elapsedTime = new Date().getTime() - timeStart;
+	if (elapsedTime > milliseconds) {
+		break;
+	}
+	}
+}
+
+
+
+  if(!timerOn) {
+    // Do validate stuff here
+    return;
+  }
+  
+  // Do timeout stuff here
+  
+  callSweetMsg()
+  
+  
+  
+
+  function callSweetMsg(){
+
+
+    swal({
+    title: "Oops !",
+    text: "Otp session expired, Didn't receive your otp",
+    type: "error",
+    showCancelButton: true,
+    confirmButtonText: "Resend otp",
+    cancelButtonText: "Back to login",
+    closeOnConfirm: false,
+    closeOnCancel: false
+}, function(isConfirm) {
+    if (isConfirm) {
+        location.reload();
+    } else {
+        window.location.replace("http://127.0.0.1:8000/user_login");
+    }
+});
+
+  
+  }
+  
+
+}
+
+
+timer(120);
+</script>
+
+-->
+
+<!--timer : https://stackoverflow.com/questions/50609692/otp-verification-2-minutes-count-down-timer/50610011#comment88229225_50609692
+sleep : https://www.geeksforgeeks.org/how-to-add-sleep-wait-function-before-continuing-in-javascript/
+sweet alert2: https://code.tutsplus.com/tutorials/creating-pretty-popup-messages-using-sweetalert2--cms-30662
+sweetalert2-website: https://sweetalert2.github.io/
+sweet-alert redirect: https://stackoverflow.com/questions/37358423/how-to-redirect-page-after-click-on-ok-button-on-sweet-alert
+https://stackoverflow.com/questions/38521146/effectively-using-sweetalert-confirm-and-cancel
+
+using sweet alert 1
+
+-->
+
+
+{% endblock content %}

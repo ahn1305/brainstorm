@@ -1,0 +1,53 @@
+{% extends 'survey_app/base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+
+
+
+<form method = "POST" action="">
+    {% csrf_token %}
+  <div class="register-container">
+    <h2>Login</h2>
+    <hr>
+    <!--{{form|crispy}}-->
+  
+    <label for="username"><b>Username*</b></label>
+    {{form.username}}
+    <div class="invalid-feedback">{{form.username.errors}}</div>
+
+    <label for="password"><b>Password*</b></label>
+    {{form.password}}
+    <div class="invalid-feedback">{{form.password.errors}}</div>
+
+    <input type="checkbox" onclick="myFunction()">&nbsp;Show Password
+
+    <script>
+    function myFunction() {
+    var x = document.getElementById("id_password");
+    if (x.type === "password") {
+      x.type = "text";
+    } else {
+      x.type = "password";
+    }
+  }
+  </script>
+
+    <hr>
+    
+
+
+  <a href="{% url 'password_reset' %}">Forgot your password?</a>
+  <br><br>
+
+    <button type="submit" class="registerbtn">Login</button>
+  </div>
+  
+  <div class="container signin">
+    <p>Need an account? <a href="{% url 'register' %}">Sign Up</a>.</p>
+	<br>
+  </div>
+</form>
+
+{% endblock content %}
+

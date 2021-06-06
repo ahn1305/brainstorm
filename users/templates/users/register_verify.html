@@ -1,0 +1,90 @@
+{% extends "survey_app/removed_urls.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+
+
+<form method = "POST" action="">
+    {% csrf_token %}
+  <div class="register-container">
+    <h2>Verification</h2>
+    <hr>
+    <!--{{form|crispy}}-->
+    
+    <label for="number"><b>Code*</b></label>
+    {{form.number}}
+    <div class="invalid-feedback">{{form.number.errors}}</div>
+    <hr>
+
+    <button type="submit" class="registerbtn">Verify</button>
+  </div>
+
+</form>
+<div>Time left = <span id="timer"></span></div>
+
+<script>
+let timerOn = true;
+
+function timer(remaining) {
+  var m = Math.floor(remaining / 60);
+  var s = remaining % 60;
+  
+  m = m < 10 ? '0' + m : m;
+  s = s < 10 ? '0' + s : s;
+  document.getElementById('timer').innerHTML = m + ':' + s;
+  remaining -= 1;
+  
+  if(remaining >= 0 && timerOn) {
+    setTimeout(function() {
+        timer(remaining);
+    }, 1000);
+    return;
+  }
+
+  function sleep(milliseconds) {
+	let timeStart = new Date().getTime();
+	while (true) {
+	let elapsedTime = new Date().getTime() - timeStart;
+	if (elapsedTime > milliseconds) {
+		break;
+	}
+	}
+}
+
+
+
+  if(!timerOn) {
+    // Do validate stuff here
+    return;
+  }
+  
+  // Do timeout stuff here
+  
+  callSweetMsg()
+  
+  
+  
+
+  function callSweetMsg(){
+
+
+    swal({
+    title: "Oops !",
+    text: "Otp session expired, Didn't receive your otp",
+    type: "error",
+    confirmButtonText: "Resend otp",
+}, function() {
+        location.reload();
+    
+});
+
+  
+  }
+  
+
+}
+
+
+timer(30);
+</script>
+{% endblock content %}

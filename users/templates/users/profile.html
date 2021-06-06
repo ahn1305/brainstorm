@@ -1,0 +1,100 @@
+{% extends "survey_app/base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+  
+
+<!-- 
+  {% if u_form.email.errors %}
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+  <strong>{{ u_form.email.errors }}</strong>
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+{% endif %}
+
+
+ {% if u_form.username.errors %}
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+  <strong>{{ u_form.username.errors }}</strong>
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+{% endif %}
+
+-->
+
+
+<form method = "POST" action = "" enctype="multipart/form-data">
+    {% csrf_token %}
+  <div class="register-container">
+  <div class="media">
+        <img class="rounded-circle account-img" src="{{ user.profile.image.url }}">
+        <div class="media-body">
+          <h2 class="account-heading">{{ user.username }}</h2>
+          <p class="text-secondary"><b>{{ user.email }}<b></p>
+        </div>
+      </div>
+    <h2>Profile Info</h2>
+    <hr>
+
+     <form method="POST" enctype="multipart/form-data"> 
+		{% csrf_token %}
+		<fieldset class = "form-group">
+			{{ u_form|crispy }}
+			{{ p_form|crispy }}
+		</fieldset>
+	</form>
+      
+<!--
+
+    <label for="username"><b>Username*</b></label>
+    {{u_form.username}}
+    {{u_form.username.help_text}}
+  
+    <br><br>
+
+    <label for="email"><b>Email*</b></label>
+    {{u_form.email}}
+  
+    <br><br>
+
+    <label for="image"><b>Image</b></label>
+    {{p_form.image}}
+    <br><br>
+
+    {{p_form.bio|as_crispy_field}}
+    <br><br>
+
+    <label for="website_url"><b>Website Url</b></label>
+    {{p_form.website_url}}
+    <br><br>
+
+    <label for="instagram_url"><b>Instagram Url</b></label>
+    {{p_form.instagram_url}}
+    <br><br>
+
+    <label for="facebook_url"><b>Facebook Url</b></label>
+    {{p_form.facebook_url}}
+    <br><br>
+
+    <label for="twitter_url"><b>Twitter Url</b></label>
+    {{p_form.twitter_url}}
+    <br><br>
+
+    <label for="github_url"><b>Github Url</b></label>
+    {{p_form.github_url}}
+    <br><br>
+
+    <label for="linkedin_url"><b>Linkedin Url</b></label>
+    {{p_form.linkedin_url}}
+    <br><br>
+
+    <hr>
+-->
+    <button type="submit" class="registerbtn">Update</button>
+  </div>
+
+</form>
+{% endblock content %}
