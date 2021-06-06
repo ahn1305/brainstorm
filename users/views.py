@@ -77,6 +77,7 @@ def user_register_verify_view(request):
             if code_dict_r[request.session.get('pk')] == num and time.time() - code_time_r < 11:
                 login(request, user)
                 messages.success(request, f'You are logged in successfully')
+                del code_dict_r[request.session.get('pk')] # deleting the otp of the authenticated user
                 return redirect('user_interests')
             else:
                 messages.warning(request, f'Enter valid otp!')
@@ -128,6 +129,7 @@ def user_login_verify_view(request):
             if code_dict_l[request.session.get('pk')] == num and time.time() - code_time_l < 11:
                 login(request, user)
                 messages.success(request, f'You are logged in successfully')
+                del code_dict_l[request.session.get('pk')]
                 return redirect('home')
 
             else:
