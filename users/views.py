@@ -52,12 +52,12 @@ def user_register_verify_view(request):
     form = CodeForm(request.POST or None)
     pk = request.session.get('pk')
 
+    global code_dict_r
+
     
     if pk:
 
         user = User.objects.get(pk=pk)
-        #code = user.code
-        #{user.username}
 
         if not request.POST:
             global code_r
@@ -104,7 +104,7 @@ def user_login_verify_view(request):
     form = CodeForm(request.POST or None)
     pk = request.session.get('pk')
 
-    global code_dict
+    global code_dict_l
     
     
     if pk:
@@ -130,6 +130,7 @@ def user_login_verify_view(request):
                 login(request, user)
                 messages.success(request, f'You are logged in successfully')
                 del code_dict_l[request.session.get('pk')]
+                print(code_dict_l)
                 return redirect('home')
 
             else:
