@@ -80,7 +80,7 @@ def user_register_verify_view(request):
                 del code_dict_r[request.session.get('pk')] # deleting the otp of the authenticated user
                 return redirect('user_interests')
             else:
-                messages.warning(request, f'Enter valid otp!')
+                messages.warning(request, f'Enter valid details')
     return render(request,'users/register_verify.html',{'form':form})
 
 
@@ -95,7 +95,7 @@ def user_login(request):
             request.session['pk'] = user.pk
             return redirect('login-verify-view')
         else:
-            messages.warning(request, f'Enter valid details!')
+            messages.warning(request, f'Enter valid details')
 
     return render(request, 'users/login.html', {'form':form})
 

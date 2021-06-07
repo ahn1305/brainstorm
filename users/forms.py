@@ -22,7 +22,10 @@ class UserRegisterForm(UserCreationForm):
         raise forms.ValidationError('This email address is already in use.')
 
 class LoginForm(AuthenticationForm):
-    username = forms.CharField(label='Username')
+    username = forms.CharField(label='Username',
+    widget= forms.TextInput
+                           (attrs={'placeholder':'username or email'}))
+    password = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder':'password'}))
 
 class UserUpdateForm(forms.ModelForm):
     email = forms.EmailField()
