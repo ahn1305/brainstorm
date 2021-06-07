@@ -33,7 +33,7 @@ def user_register(request):
             username = form.cleaned_data.get('username')
             
             messages.success(request, f'Your account has been created! You are now able to log in')
-            new_user = authenticate(username=form.cleaned_data['username'],
+            new_user = authenticate(request,username=form.cleaned_data['username'],
                                     password=form.cleaned_data['password1'],
                                     )
             #login(request, new_user)
@@ -75,7 +75,7 @@ def user_register_verify_view(request):
             num = form.cleaned_data.get('number')
 
             if code_dict_r[request.session.get('pk')] == num and time.time() - code_time_r < 11:
-                login(request, user)
+                login(request, user,backend='axes.backends.AxesBackend')
                 messages.success(request, f'You are logged in successfully')
                 del code_dict_r[request.session.get('pk')] # deleting the otp of the authenticated user
                 return redirect('user_interests')
@@ -126,8 +126,8 @@ def user_login_verify_view(request):
             print(num)
             print(code_l)
 
-            if code_dict_l[request.session.get('pk')] == num and time.time() - code_time_l < 11:
-                login(request, user)
+            if code_dict_l[request.session.get('pk')] == num and time.time() - code_time_l < 121:
+                login(request, user, backend='django.contrib.auth.backends.ModelBackend')
                 messages.success(request, f'You are logged in successfully')
                 del code_dict_l[request.session.get('pk')]
                 print(code_dict_l)

@@ -51,6 +51,7 @@ class update_interest(SuccessMessageMixin,UpdateView):
     success_url = reverse_lazy('user-profile')
     
 
+
 @login_required
 def survey_list(request):
     """User can view all their surveys"""
