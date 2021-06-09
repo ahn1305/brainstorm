@@ -44,8 +44,13 @@ INSTALLED_APPS = [
     'crispy_forms',
     'multiselectfield',
     'axes',
+    'django_otp',
+    'django_otp.plugins.otp_totp',
 
 ]
+
+#https://blog.auberginesolutions.com/quick-start-two-factor-authentication-in-django-admin-panel/
+#https://www.geeksforgeeks.org/securing-django-admin-login-with-otp-2-factor-authentication/
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -55,6 +60,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django_otp.middleware.OTPMiddleware',
+
     # AxesMiddleware should be the last middleware in the MIDDLEWARE list.
     # It only formats user lockout messages and renders Axes lockout responses
     # on failed user authentication attempts from login views.
@@ -64,6 +71,7 @@ MIDDLEWARE = [
 
 
 ]
+
 
 ROOT_URLCONF = 'survey_project.urls'
 
