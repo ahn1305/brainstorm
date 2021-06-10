@@ -17,7 +17,7 @@ from django.contrib.messages.views import SuccessMessageMixin
 import string
 import random
 
-from .utils import send_email
+from .utils import send_email_login , send_email_register
 import time
 
 
@@ -67,14 +67,15 @@ def user_register_verify_view(request):
             print(code_dict_r)
             
             print(code_r)
+            send_email_register(code_r,user.email,user)
 
             code_time_r = time.time()
             
-            #send_email(code_user,user.email)
+            
         if form.is_valid():
             num = form.cleaned_data.get('number')
 
-            if code_dict_r[request.session.get('pk')] == num and time.time() - code_time_r < 11:
+            if code_dict_r[request.session.get('pk')] == num and time.time() - code_time_r < 121:
                 login(request, user,backend='axes.backends.AxesBackend')
                 messages.success(request, f'You are logged in successfully')
                 del code_dict_r[request.session.get('pk')] # deleting the otp of the authenticated user
@@ -117,9 +118,8 @@ def user_login_verify_view(request):
             global code_time_l
             code_l = id_generator()
             code_dict_l[pk] = code_l
-            print(code_dict_l)
-            #send_email(code_user,user.email)
             print(code_l)
+            send_email_login(code_l,user.email,user)
             code_time_l = time.time()
         if form.is_valid():
             num = form.cleaned_data.get('number')
