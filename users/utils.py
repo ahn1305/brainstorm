@@ -24,7 +24,7 @@ def send_email_register(user_code,email,usr):
       <a href="" style="font-size:1.4em;color: #00466a;text-decoration:none;font-weight:600">Brainstrom</a>
     </div>
     <p style="font-size:1.1em">Welcome {},</p>
-    <p>Thank you for choosing Us. Use the following OTP to complete your Sign Up procedures.
+    <p>Thank you for choosing Us. Use the following OTP to complete your Sign up procedures.
 	<br> OTP is valid for 2 minutes</p>
     <h2 style="background: #00466a;width: max-content;padding: 0 10px;color: #fff;border-radius: 4px;">{}</h2>
     <p style="font-size:0.9em;">Regards,<br />Team Brainstrom</p>
