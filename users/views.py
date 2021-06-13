@@ -67,7 +67,7 @@ def user_register_verify_view(request):
             print(code_dict_r)
             
             print(code_r)
-            send_email_register(code_r,user.email,user)
+            #send_email_register(code_r,user.email,user)
 
             code_time_r = time.time()
             
@@ -119,7 +119,7 @@ def user_login_verify_view(request):
             code_l = id_generator()
             code_dict_l[pk] = code_l
             print(code_l)
-            send_email_login(code_l,user.email,user)
+            #send_email_login(code_l,user.email,user)
             code_time_l = time.time()
         if form.is_valid():
             num = form.cleaned_data.get('number')

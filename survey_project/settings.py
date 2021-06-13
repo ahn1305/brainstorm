@@ -175,3 +175,9 @@ AXES_FAILURE_LIMIT = 3
 AXES_LOCK_OUT_BY_COMBINATION_USER_AND_IP = True
 AXES_COOLOFF_TIME = timedelta(minutes=1)
 AXES_LOCKOUT_TEMPLATE = 'users/lockout.html'
+
+# SESSION_EXPIRE_AT_BROWSER_CLOSE = False
+# SESSION_COOKIE_AGE = 1 * 60 
+# SESSION_SAVE_EVERY_REQUEST = True
+
+#https://adiyatmubarak.wordpress.com/2015/09/21/session-idle-timeout-in-django/

@@ -1,7 +1,17 @@
 {% load static %}
 
 <html lang="en">
+
   <head>
+  <!-- alertify.js -->
+  <script src="{% static 'survey_app/js/alertify.min.js' %}"></script>
+
+  <!-- include the style -->
+<link rel="stylesheet" href="{% static 'survey_app/css/alertify.min.css' %}"/>
+<!-- include a theme -->
+<link rel="stylesheet" href="{% static 'survey_app/css/default.min.css' %}" />
+
+
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <!--font css-->
@@ -12,10 +22,12 @@
     <link rel="icon" href="https://s3.eu-central-1.amazonaws.com/bootstrapbaymisc/blog/24_days_bootstrap/logo_white.png" type="image/png" sizes="16x16">
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+
     <!-- my css-->
     <link rel="stylesheet" type="text/css" href="{% static 'survey_app/css/main.css' %}">
     <title>Brainstrom</title>
   </head>
+
   <body>
       <header class="site-header">
       <nav class="navbar navbar-expand-md navbar-dark bg-success">
@@ -44,12 +56,10 @@
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
           <a class="dropdown-item" href="{% url 'user-profile' %}">My Profile</a>
           <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="{% url 'user_logout' %}">Logout</a>
+          <a class="dropdown-item" href="{% url 'user_logout' %}" onclick="return alertify.confirm('hi').setting({'modal':true, 'closable':false});">Logout</a>
         </div>
-      </li>
-                
-                
-                {% else %}
+      </li>      
+             {% else %}
                 <a class="nav-item nav-link" href="{% url 'register' %}">Register</a>
                 <a class="nav-item nav-link" href="{% url 'login' %}">Login</a>
                 {% endif %}
