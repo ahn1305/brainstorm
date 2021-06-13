@@ -5,7 +5,6 @@
   <head>
   <!-- alertify.js -->
   <script src="{% static 'survey_app/js/alertify.min.js' %}"></script>
-
   <!-- include the style -->
 <link rel="stylesheet" href="{% static 'survey_app/css/alertify.min.css' %}"/>
 <!-- include a theme -->
@@ -56,10 +55,10 @@
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
           <a class="dropdown-item" href="{% url 'user-profile' %}">My Profile</a>
           <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="{% url 'user_logout' %}" onclick="return alertify.confirm('hi').setting({'modal':true, 'closable':false});">Logout</a>
+          <a class="dropdown-item" href="{% url 'user_logout' %}" onclick="return window.alertify.confirm('Are u sure??')">Logout</a>
         </div>
       </li>      
-             {% else %}
+                    {% else %}
                 <a class="nav-item nav-link" href="{% url 'register' %}">Register</a>
                 <a class="nav-item nav-link" href="{% url 'login' %}">Login</a>
                 {% endif %}
