@@ -148,8 +148,6 @@ def user_login_verify_view(request):
     pk = request.session.get('pk')
 
     global code_dict_l
-    global counter_dict
-    global count
     
     
     if pk:
