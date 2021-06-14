@@ -27,7 +27,7 @@ SECRET_KEY = 'nqp525%myeg^bkz_zjw*8634anjrh8@*_cll@1nm&ej89*bk58'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost','127.0.0.1']
+ALLOWED_HOSTS = ['localhost','127.0.0.1','8b77db1d76b6.ngrok.io']
 
 
 # Application definition
@@ -127,7 +127,7 @@ AUTHENTICATION_BACKENDS = (
     # AxesBackend should be the first backend in the AUTHENTICATION_BACKENDS list.
     'axes.backends.AxesBackend',
 
-    'users.backends.EmailBackend',
+    #'users.backends.EmailBackend',
 
     # Django ModelBackend is the default authentication backend.
     'django.contrib.auth.backends.ModelBackend',
@@ -171,9 +171,9 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = ('ab7710850@gmail.com')
 EMAIL_HOST_PASSWORD = ('cr712345')
 
-AXES_FAILURE_LIMIT = 3
+AXES_FAILURE_LIMIT = 5
 AXES_LOCK_OUT_BY_COMBINATION_USER_AND_IP = True
-AXES_COOLOFF_TIME = timedelta(minutes=1)
+AXES_COOLOFF_TIME = timedelta(minutes=5)
 AXES_LOCKOUT_TEMPLATE = 'users/lockout.html'
 
 # SESSION_EXPIRE_AT_BROWSER_CLOSE = False

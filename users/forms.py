@@ -24,7 +24,7 @@ class UserRegisterForm(UserCreationForm):
 class LoginForm(AuthenticationForm):
     username = forms.CharField(label='Username',
     widget= forms.TextInput
-                           (attrs={'placeholder':'username or email'}))
+                           (attrs={'placeholder':'username'}))
     password = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder':'password'}))
 
 class UserUpdateForm(forms.ModelForm):

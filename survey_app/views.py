@@ -25,9 +25,11 @@ def home(request):
     }
     return render(request,'survey_app/home.html',context)
 
+@login_required
 def user_profile(request):
     return render(request, 'survey_app/user_profile.html')
 
+@login_required
 def user_interest(request):
     if request.method == 'POST':
         form = UserInterestsForm(request.POST)
