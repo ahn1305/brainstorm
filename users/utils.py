@@ -1,9 +1,8 @@
-
+import smtplib, ssl
+from email.mime.text import MIMEText
+from email.mime.multipart import MIMEMultipart
 
 def send_email_register(user_code,email,usr):
-	import smtplib, ssl
-	from email.mime.text import MIMEText
-	from email.mime.multipart import MIMEMultipart
 
 	code_r = user_code
 
@@ -55,10 +54,6 @@ def send_email_register(user_code,email,usr):
 		)
 
 def send_email_login(user_code,email,usr):
-	import smtplib, ssl
-	from email.mime.text import MIMEText
-	from email.mime.multipart import MIMEMultipart
-
 	code_l = user_code
 
 	sender_email = "ab7710850@gmail.com"
@@ -108,3 +103,40 @@ def send_email_login(user_code,email,usr):
 		server.sendmail(
 			sender_email, receiver_email, message.as_string()
 		)
+
+def send_warning_email(usr_email):
+# Python code to illustrate Sending mail from
+# your Gmail account
+
+	# creates SMTP session
+	s = smtplib.SMTP('smtp.gmail.com', 587)
+
+	# start TLS for security
+	s.starttls()
+
+	# Authentication
+	s.login("ab7710850@gmail.com", "cr712345")
+
+
+	SUBJECT = "Multiple login failures"   
+
+	TEXT = """
+	Your account has been locked for five minutes due to multiple login failures. 
+	If it was not you try resetting your password.
+
+	http://127.0.0.1:8000/password-reset/
+
+	"""
+
+
+
+	# message to be sent
+	message = 'Subject: {}\n\n{}'.format(SUBJECT, TEXT)
+
+
+
+	# sending the mail
+	s.sendmail("ab7710850@gmail.com", f"{usr_email}", message)
+
+	# terminating the session
+	s.quit()

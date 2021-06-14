@@ -19,12 +19,12 @@ import string
 import random
 from django.core.exceptions import ValidationError
 from django.http import HttpResponse
-# from axes.models import AccessAttempt
+from axes.models import AccessAttempt
 from json import dumps
 from django.contrib.auth import authenticate
 from django.urls import reverse
 
-from .utils import send_email_login , send_email_register
+from .utils import send_email_login , send_email_register,send_warning_email
 import time
 
 
@@ -97,12 +97,13 @@ def user_register_verify_view(request):
     return render(request,'users/register_verify.html',{'form':form})
 
 counter_dict = {}
+
 def user_login(request):
     if request.user.is_authenticated:
         return redirect(reverse('home'))
     global counter_dict
 
-    
+
     form = LoginForm()
     if request.method == 'POST':
         username = request.POST.get('username')
@@ -121,8 +122,10 @@ def user_login(request):
 
         if username not in counter_dict:
             counter_dict[username] = 0
+            
 
         if user is not None:
+            del counter_dict[username]
             request.session['pk'] = user.pk
             return redirect('login-verify-view')
         else:
@@ -130,7 +133,11 @@ def user_login(request):
             print(counter_dict)
             if counter_dict[username] >= 5:
                 usr = User.objects.get(username__exact=username)
-                print(usr.email)
+                u_email = usr.email
+                send_warning_email(u_email)
+
+                
+            
             messages.warning(request, f'Enter valid details')
            
                 
