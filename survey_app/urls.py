@@ -1,13 +1,13 @@
 from django.contrib import admin
 from django.urls import path
 from . import views
-from .views import update_interest, user_profile
+from .views import user_profile
 
 urlpatterns = [
     path('', views.home, name="home"),
     path('user_interests/', views.user_interest, name = 'user_interests'),
     path('user_profile/', views.user_profile, name="user-profile"),
-    path('<int:pk>/update', update_interest.as_view(), name="user_interest_update" ),
+    path('userinterestsupdate', views.updateinterestview, name="user_interest_update" ),
     path("surveys/", views.survey_list, name="survey-list"),
     path("surveys/<int:pk>/", views.detail, name="survey-detail"),
     path("surveys/create/", views.create, name="survey-create"),

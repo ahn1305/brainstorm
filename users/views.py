@@ -43,7 +43,7 @@ def id_generator(size=6, chars=string.ascii_uppercase + string.digits):
 #-------------------------------------------------------------------------------------------------------------------------------
 # Register view
 
-def user_register(request):
+def user_register(request): # to facilitate server client communication
     if request.user.is_authenticated:
         return redirect(reverse('home')) # if user is already logged in and tries to go to register page they will be redirected to home page
     if request.method == 'POST': # check if method is post
@@ -61,9 +61,9 @@ def user_register(request):
             # authenticating the user
             #login(request, new_user)
 
-            if new_user is not None:
-                request.session['pk'] = new_user.pk
-                return redirect('register-verify-view')
+            if new_user is not None: # checking if user and password combination exist in db
+                request.session['pk'] = new_user.pk # setting user pk to a session 
+                return redirect('register-verify-view') # going to r 
             else:
                 messages.warning(request, f'Enter valid details!')
     else:
@@ -78,7 +78,7 @@ def user_register_verify_view(request):
     if request.user.is_authenticated:
         return redirect(reverse('home'))
     
-    form = CodeForm(request.POST or None)
+    form = CodeForm(request.POST or None) # none makes the form loo empty during a get request
     pk = request.session.get('pk')
 
     global code_dict_r
@@ -98,13 +98,13 @@ def user_register_verify_view(request):
             print(code_r)
             #send_email_register(code_r,user.email,user)
 
-            code_time_r = time.time()
+            code_time_r = time.time() # storing the time after otp is generated
             
             
         if form.is_valid():
             num = form.cleaned_data.get('number')
 
-            if code_dict_r[request.session.get('pk')] == num and time.time() - code_time_r < 121:
+            if code_dict_r[request.session.get('pk')] == num and time.time() - code_time_r < 121: # sub current time from otp gen time, and checking if its less than 2 min
                 login(request, user,backend='axes.backends.AxesBackend')
                 messages.success(request, f'You are logged in successfully')
                 del code_dict_r[request.session.get('pk')] # deleting the otp of the authenticated user
@@ -149,8 +149,8 @@ def user_login(request):
 
         if user is not None:
             if username in time_dict:
-                if time.time() - time_dict[username] >= 60: 
-                    counter_dict[username] = 0
+                if time.time() - time_dict[username] >= 60: # sub current time from the five attempts failed time
+                    counter_dict[username] = 0 # resetting the counter to 0
                     request.session['pk'] = user.pk
                     return redirect('login-verify-view')
             else:
@@ -158,15 +158,16 @@ def user_login(request):
                 return redirect('login-verify-view')
 
         else:
-            if counter_dict[username] < 6:
+            # if login not successful
+            if counter_dict[username] < 5: 
                 counter_dict[username] += 1
                 print(counter_dict)
             
-            if counter_dict[username] == 5:
+            elif counter_dict[username] == 5:
                 time_dict[username] = time.time()
-                usr = User.objects.get(username__exact=username)
-                u_email = usr.email
-                send_warning_email(u_email)
+                usr = User.objects.get(username__exact=username) # getting username from db
+                u_email = usr.email # extracting email
+                send_warning_email(u_email) # sending warning email
                 print('we are here')
             else:
                 pass

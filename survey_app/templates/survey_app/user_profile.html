@@ -26,7 +26,7 @@
       <br>Music: {{ request.user.user_interests.music }}
       <br>Science: {{ request.user.user_interests.science }}
       </p>
-    <a href="{% url 'user_interest_update' request.user.pk %}" class="btn btn-outline-success">Edit Interest</a>
+    <a href="{% url 'user_interest_update' %}" class="btn btn-outline-success">Edit Interest</a>
   </div>
 </div>
             </div>

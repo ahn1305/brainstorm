@@ -45,14 +45,34 @@ def user_interest(request):
     return render(request, 'survey_app/user_interests_form.html', {'form': form})
 
 
-class update_interest(SuccessMessageMixin,UpdateView):
-    model = user_interests
-    template_name = 'survey_app/user_interests_update_form.html'
-    fields = ['sports','music','science']
-    success_message = (f'Interests updated successfully')
-    success_url = reverse_lazy('user-profile')
-    
+# class update_interest(SuccessMessageMixin,UpdateView):
+#     model = user_interests
+#     template_name = 'survey_app/user_interests_update_form.html'
+#     fields = ['sports','music','science']
+#     success_message = (f'Interests updated successfully')
+#     success_url = reverse_lazy('user-profile')
 
+@login_required
+def updateinterestview(request):
+    print("we are here at update view")
+    if request.method == 'POST':
+        i_form = UserInterestsForm(request.POST,instance=request.user.user_interests)
+    
+        if i_form.is_valid():
+            i_form.save()
+
+            print("update successful")
+            messages.success(request, f'Your account has been updated!')
+            return redirect('user-profile') # we are redirecting for a get request, if we refresh
+
+    else:
+        i_form = UserInterestsForm(instance=request.user.user_interests)
+
+    context = {
+        'form': i_form,
+    }
+
+    return render(request, 'survey_app/user_interests_update_form.html', {'form': i_form})
 
 @login_required
 def survey_list(request):
