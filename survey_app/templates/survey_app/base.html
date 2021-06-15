@@ -2,28 +2,29 @@
 
 <html lang="en">
 
-  <head>
-  <!-- alertify.js -->
-  <script src="{% static 'survey_app/js/alertify.min.js' %}"></script>
-  <!-- include the style -->
-<link rel="stylesheet" href="{% static 'survey_app/css/alertify.min.css' %}"/>
-<!-- include a theme -->
-<link rel="stylesheet" href="{% static 'survey_app/css/default.min.css' %}" />
+<head>
+<!-- jquery -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
+<!-- jquery-confirm package -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
 
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <!--font css-->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
+<!-- Required meta tags -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <!-- Tab icon -->
-    <link rel="icon" href="https://s3.eu-central-1.amazonaws.com/bootstrapbaymisc/blog/24_days_bootstrap/logo_white.png" type="image/png" sizes="16x16">
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+<!--font css-->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
 
-    <!-- my css-->
-    <link rel="stylesheet" type="text/css" href="{% static 'survey_app/css/main.css' %}">
+<!-- Tab icon -->
+<link rel="icon" href="https://s3.eu-central-1.amazonaws.com/bootstrapbaymisc/blog/24_days_bootstrap/logo_white.png" type="image/png" sizes="16x16">
+
+<!-- Bootstrap CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+
+<!-- my css-->
+<link rel="stylesheet" type="text/css" href="{% static 'survey_app/css/main.css' %}">
     <title>Brainstrom</title>
   </head>
 
@@ -55,9 +56,17 @@
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
           <a class="dropdown-item" href="{% url 'user-profile' %}">My Profile</a>
           <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="{% url 'user_logout' %}" onclick="return window.alertify.confirm('Are u sure??')">Logout</a>
+          <a class="dropdown-item confirm" id='lot' href="{% url 'user_logout' %}" >logout</a>
         </div>
       </li>      
+      <script type="text/javascript">
+ 
+    $(".confirm").confirm({
+        content: "Are you sure you want to logout?",
+        title: "Logout confirmation",
+        type: 'red',
+    });
+    </script>
                     {% else %}
                 <a class="nav-item nav-link" href="{% url 'register' %}">Register</a>
                 <a class="nav-item nav-link" href="{% url 'login' %}">Login</a>

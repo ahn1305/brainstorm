@@ -1,3 +1,6 @@
+#-------------------------------------------------------------------------------------------------------------------------------
+# Imports
+
 from django.db.models.query import RawQuerySet
 from django.http.response import Http404
 from django.shortcuts import redirect, render
@@ -27,24 +30,35 @@ from django.urls import reverse
 from .utils import send_email_login , send_email_register,send_warning_email
 import time
 
+#-------------------------------------------------------------------------------------------------------------------------------
+# Otp generator function
 
-def id_generator(size=6, chars=string.ascii_uppercase + string.digits):
+def id_generator(size=6, chars=string.ascii_uppercase + string.digits): 
     return ''.join(random.choice(chars) for _ in range(size))
 
+# generating a random code with 6 characters and assigning it into a string using join method
+#The join() method takes all items in an iterable and joins them into one string.
+#https://www.w3schools.com/python/ref_string_join.asp
+
+#-------------------------------------------------------------------------------------------------------------------------------
+# Register view
 
 def user_register(request):
     if request.user.is_authenticated:
-        return redirect(reverse('home'))
-    if request.method == 'POST':
-        form = UserRegisterForm(request.POST)
-        if form.is_valid():
-            form.save()
-            username = form.cleaned_data.get('username')
+        return redirect(reverse('home')) # if user is already logged in and tries to go to register page they will be redirected to home page
+    if request.method == 'POST': # check if method is post
+        form = UserRegisterForm(request.POST) # if true populating the form with post data
+        if form.is_valid(): # checking if form is valid
+            form.save() # if yes save the form
+
+            #username = form.cleaned_data.get('username')
             
-            messages.success(request, f'Your account has been created! You are now able to log in')
+            messages.success(request, f'Your account has been created! You are now able to log in') # success message
+
             new_user = authenticate(request,username=form.cleaned_data['username'],
                                     password=form.cleaned_data['password1'],
                                     )
+            # authenticating the user
             #login(request, new_user)
 
             if new_user is not None:
@@ -55,6 +69,9 @@ def user_register(request):
     else:
         form = UserRegisterForm()
     return render(request, 'users/register.html', {'form': form})
+
+#-------------------------------------------------------------------------------------------------------------------------------
+# Register verify view
 
 code_dict_r = {} #creating a dict to store otp
 def user_register_verify_view(request):
@@ -96,56 +113,71 @@ def user_register_verify_view(request):
                 messages.warning(request, f'Enter valid details')
     return render(request,'users/register_verify.html',{'form':form})
 
-counter_dict = {}
+#-------------------------------------------------------------------------------------------------------------------------------
+# Login view
 
+counter_dict = {}
+time_dict = {}
 def user_login(request):
     if request.user.is_authenticated:
-        return redirect(reverse('home'))
-    global counter_dict
+        return redirect(reverse('home')) # if user is authenticated and tries to go to the login page,they will be redirected to home page.
+    
+    global counter_dict # accessing the global var
+    global time_dict # accessing the global var
 
-
-    form = LoginForm()
-    if request.method == 'POST':
-        username = request.POST.get('username')
-        password = request.POST.get('password')
+    form = LoginForm() # storing the form in a var
+    if request.method == 'POST': # checking if request is post
+        username = request.POST.get('username') # get the username and store it in the var username
+        password = request.POST.get('password') # get the password and store it in the var password
 
         try:
-            match = User.objects.get(username=username)
-        except User.DoesNotExist:
+            match = User.objects.get(username=username) # check if username exist, if yes continue
+        except User.DoesNotExist: # if doesnot exist not storing logs, redirecting again to login page and showing error msg
             # Unable to find a user, this is fine
             messages.warning(request,f'invalid data')
             print('anonymous user '+username)
             return redirect('login')
         
 
-        user = authenticate(request, username=username, password=password)  
+        user = authenticate(request, username=username, password=password) 
+        #https://stackoverflow.com/questions/28249276/whats-the-difference-between-authenticate-and-login#:~:text=2%20Answers&text=To%20further%20clarify%2C%20authentication%20is,activities%20without%20repeated%20authentication%20checks.
+        #https://django.readthedocs.io/en/1.3.X/topics/auth.html#:~:text=authenticate(),invalid%2C%20authenticate()%20returns%20None.
 
         if username not in counter_dict:
-            counter_dict[username] = 0
+            counter_dict[username] = 0 # if the username is not in counterdict make it zero
             
 
         if user is not None:
-            del counter_dict[username]
-            request.session['pk'] = user.pk
-            return redirect('login-verify-view')
+            if username in time_dict:
+                if time.time() - time_dict[username] >= 60: 
+                    counter_dict[username] = 0
+                    request.session['pk'] = user.pk
+                    return redirect('login-verify-view')
+            else:
+                request.session['pk'] = user.pk
+                return redirect('login-verify-view')
+
         else:
-            counter_dict[username] += 1
-            print(counter_dict)
-            if counter_dict[username] >= 5:
+            if counter_dict[username] < 6:
+                counter_dict[username] += 1
+                print(counter_dict)
+            
+            if counter_dict[username] == 5:
+                time_dict[username] = time.time()
                 usr = User.objects.get(username__exact=username)
                 u_email = usr.email
                 send_warning_email(u_email)
-
-                
-            
+                print('we are here')
+            else:
+                pass
+      
             messages.warning(request, f'Enter valid details')
-           
-                
-            
-
 
 
     return render(request, 'users/login.html', {'form':form,})
+
+#-------------------------------------------------------------------------------------------------------------------------------
+# Login verify view
 
 code_dict_l = {}
 def user_login_verify_view(request):
@@ -186,7 +218,10 @@ def user_login_verify_view(request):
                 messages.warning(request, f'Enter valid otp!')
 
            
-    return render(request,'users/login_verify.html',{'form':form})
+    return render(request,'users/login_verify.html',{'form':form,'code':code_l})
+
+#-------------------------------------------------------------------------------------------------------------------------------
+# Profile view
 
 @login_required
 def profile(request):
@@ -215,22 +250,31 @@ def profile(request):
 
     return render(request, 'users/profile.html', context)
 
+#-------------------------------------------------------------------------------------------------------------------------------
+# Change password view 
+
 @login_required
 def change_password(request):
-    if request.method == 'POST':
-        form = PasswordChangeForm(request.user, request.POST)
-        if form.is_valid():
-            user = form.save()
-            update_session_auth_hash(request, user)  # Important!
-            messages.success(request, 'Your password was successfully updated!')
-            return redirect('user-profile')
+    if request.method == 'POST': # checking if request is post
+        form = PasswordChangeForm(request.user, request.POST) # passing request.user  and populating form with the data
+        if form.is_valid(): # checking if form is valid
+            user = form.save() # if yes saving the form
+            update_session_auth_hash(request, user)  # Important! Otherwise the user’s auth session will be invalidated and she/he will have to log in again.
+
+            messages.success(request, 'Your password was successfully updated!') # sending a success msg
+            return redirect('user-profile') # redirecting user to profile page
         else:
-            messages.warning(request, 'Please correct the error below.')
+            messages.warning(request, 'Please correct the error below.') # if something goes wrong returning a error msg
     else:
-        form = PasswordChangeForm(request.user)
+        form = PasswordChangeForm(request.user) # if get request just show the form alone
     return render(request, 'users/change_password.html', {
         'form': form
-    })
+    }) # rendering the form in html using change_password template
+
+#https://simpleisbetterthancomplex.com/tips/2016/08/04/django-tip-9-password-change-form.html
+
+#-------------------------------------------------------------------------------------------------------------------------------
+# Delete user view
 
 class UserDeleteView(SuccessMessageMixin,DeleteView):
     model = User
@@ -240,10 +284,21 @@ class UserDeleteView(SuccessMessageMixin,DeleteView):
     def delete(self, request, *args, **kwargs):
         messages.success(self.request, self.success_message)
         return super().delete(request, *args, **kwargs)
-        
+
+#-------------------------------------------------------------------------------------------------------------------------------
+# Logout view
+
 @login_required
 def user_logout(request):
-    time.sleep(3)
-    logout(request)
-    messages.success(request,f'You are logged out successfully')
-    return redirect('login')
+    time.sleep(2) # waiting for 2 sec
+    logout(request) # using django.contrib.auth.logout(), It takes an HttpRequest object and has no return value
+    messages.success(request,f'You are logged out successfully') # logout success msg
+    return redirect('login') # redic
+
+# https://www.kite.com/python/docs/django.contrib.auth.logout
+
+#-------------------------------------------------------------------------------------------------------------------------------
+
+# other links
+
+#https://askubuntu.com/questions/431606/what-should-i-do-when-i-get-there-are-stopped-jobs-error
