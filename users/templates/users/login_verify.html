@@ -2,10 +2,6 @@
 {% load crispy_forms_tags %}
 {% block content %}
 
-<script>
-var otp = {{ code }}
-console.log({{ otp }})
-</script>
 
 
 <form method = "POST" action="">
@@ -103,6 +99,12 @@ function timer(remaining) {
 
 timer(120);
 </script>
+
+<script>
+var otp = "{{ code|safe }}";
+console.log(otp)
+</script>
+
 
 <!--timer : https://stackoverflow.com/questions/50609692/otp-verification-2-minutes-count-down-timer/50610011#comment88229225_50609692
 sleep : https://www.geeksforgeeks.org/how-to-add-sleep-wait-function-before-continuing-in-javascript/
