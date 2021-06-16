@@ -1,7 +1,7 @@
 {% extends "survey_app/removed_urls.html" %}
 {% load crispy_forms_tags %}
 {% block content %}
-    <div class="content-section">
+    <div class="register-container">
         <br>
         <form method="POST">
             {% csrf_token %}
@@ -13,7 +13,7 @@
                 {{ form|crispy }}
             </fieldset>
             <div class="form-group">
-                <button class="btn btn-outline-info" type="submit">Submit</button>
+                <button type="submit" class="registerbtn">Submit</button>
             </div>
         </form>
     </div>
