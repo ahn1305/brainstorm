@@ -37,4 +37,4 @@ class UserUpdateForm(forms.ModelForm):
 class ProfileUpdateForm(forms.ModelForm):
 	class Meta:
 		model = Profile
-		fields = ['image','bio','website_url','instagram_url','facebook_url','twitter_url','github_url','linkedin_url']
+		fields = ['image','bio','website_url','instagram_username','facebook_username','twitter_username','github_username','linkedin_username']

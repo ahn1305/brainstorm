@@ -27,7 +27,7 @@ SECRET_KEY = 'nqp525%myeg^bkz_zjw*8634anjrh8@*_cll@1nm&ej89*bk58'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost','127.0.0.1','8b77db1d76b6.ngrok.io']
+ALLOWED_HOSTS = ['localhost','127.0.0.1','brainstrom.app.vtxhub.com']
 
 
 # Application definition

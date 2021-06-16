@@ -8,11 +8,11 @@ class Profile(models.Model):
     bio = models.TextField(max_length=600, blank=True)
     image = models.ImageField(default='default.jpg', upload_to='Profile_pics')
     website_url = models.CharField(max_length = 255, null = True, blank = True)
-    instagram_url = models.CharField(max_length = 255, null = True, blank = True)
-    facebook_url = models.CharField(max_length = 255, null = True, blank = True)
-    twitter_url = models.CharField(max_length = 255, null = True, blank = True)
-    github_url = models.CharField(max_length = 255, null = True, blank = True)
-    linkedin_url = models.CharField(max_length = 255, null = True, blank = True)
+    instagram_username = models.CharField(max_length = 255, null = True, blank = True)
+    facebook_username = models.CharField(max_length = 255, null = True, blank = True)
+    twitter_username = models.CharField(max_length = 255, null = True, blank = True)
+    github_username = models.CharField(max_length = 255, null = True, blank = True)
+    linkedin_username = models.CharField(max_length = 255, null = True, blank = True)
 
     def __str__(self):
         return f'{self.user.username} Profile'

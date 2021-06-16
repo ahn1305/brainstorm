@@ -22,9 +22,9 @@
               <div class="card" style="200px;">
   <div class="card-body">
     <h5 class="card-title"><b>User Interests</b></h5>
-    <p class="card-text">Sports: {{ request.user.user_interests.sports }}
-      <br>Music: {{ request.user.user_interests.music }}
-      <br>Science: {{ request.user.user_interests.science }}
+    <p class="card-text"><i class='fas fa-volleyball-ball'></i>&nbsp;<b>Sports:</b> {{ request.user.user_interests.sports }}
+      <br><i class='fas fa-music'></i>&nbsp;<b>Music:</b> {{ request.user.user_interests.music }}
+      <br><i class='fas fa-atom'></i>&nbsp;<b>Science: </b> {{ request.user.user_interests.science }}
       </p>
     <a href="{% url 'user_interest_update' %}" class="btn btn-outline-success">Edit Interest</a>
   </div>
@@ -65,66 +65,66 @@
                   </div> 
                   <hr>
                   {% endif %}
-                   {% if request.user.profile.instagram_url %}
+                   {% if request.user.profile.instagram_username %}
                   <div class="row">
                     <div class="col-sm-3">
                       <h6 class="mb-0">Instagram</h6>
                     </div>
                     <div class="col-sm-9 text-secondary">
-                    	<a href="{{ request.user.profile.instagram_url }}"><b>{{ request.user.profile.instagram_url }}</b></a>
+                    	<a href="https://www.instagram.com/{{ request.user.profile.instagram_username }}"><b>{{ request.user.profile.instagram_username }}</b></a>
                     </div>
                   </div>
                   
                   <hr>
                   {% endif %}
-                  {% if request.user.profile.github_url %}
+                  {% if request.user.profile.github_username %}
                   <div class="row">
                     <div class="col-sm-3">
                       <h6 class="mb-0">Github</h6>
                     </div>
                     <div class="col-sm-9 text-secondary">
-                    	<a href="{{ request.user.profile.github_url }}"><b>{{ request.user.profile.github_url }}</b></a>
+                    	<a href="https://github.com/{{ request.user.profile.github_username }}"><b>{{ request.user.profile.github_username }}</b></a>
                     </div>
                   </div>
                   
                   <hr>
                   {% endif %}
-                  {% if request.user.profile.linkedin_url %}
+                  {% if request.user.profile.linkedin_username %}
                   <div class="row">
                     <div class="col-sm-3">
                       <h6 class="mb-0">Linkedin</h6>
                     </div>
                     <div class="col-sm-9 text-secondary">
-                    	<a href="{{ request.user.profile.linkedin_url }}"><b>{{ request.user.profile.linkedin_url }}</b></a>
+                    	<a href="https://www.linkedin.com/in/{{ request.user.profile.linkedin_username }}"><b>{{ request.user.profile.linkedin_username }}</b></a>
                     </div>
                   </div>
                   
                   <hr>
                   {% endif %}
-                  {% if request.user.profile.twitter_url %}
+                  {% if request.user.profile.twitter_username %}
                   <div class="row">
                     <div class="col-sm-3">
                       <h6 class="mb-0">Twitter</h6>
                     </div>
                     <div class="col-sm-9 text-secondary">
-                    	<a href="{{ request.user.profile.twitter_url }}"><b>{{ request.user.profile.twitter_url }}</b></a>
+                    	<a href="{{ request.user.profile.twitter_username }}"><b>{{ request.user.profile.twitter_username }}</b></a>
                     </div>
                   </div>
                   
                   <hr>
                   {% endif %}
-                  {% if request.user.profile.facebook_url %}
+                  {% if request.user.profile.facebook_username %}
                   <div class="row">
                     <div class="col-sm-3">
                       <h6 class="mb-0">Facebook</h6>
                     </div>
                     <div class="col-sm-9 text-secondary">
-                    	<a href="{{ request.user.profile.facebook_url }}"><b>{{ request.user.profile.facebook_url }}</b></a>
+                    	<a href="{{ request.user.profile.facebook_username }}"><b>{{ request.user.profile.facebook_username }}</b></a>
                     </div>
                   </div>
                   <hr>
                   {% endif %}
-                  <div class="row">
+                   <div class="row">
                     <div class="col-sm-12">
                       <a class="btn btn-outline-success" href="{% url 'profile' %}">Edit Profile</a>
                       &nbsp;<a class="btn btn-outline-success" href="{% url 'change-password' %}">Change Password</a>
@@ -132,9 +132,6 @@
                       <a class="btn btn-outline-success" href="{% url 'account_delete' request.user.pk %}">Delete Account</a>
                     </div>
                   </div>
-                  
-                </div>
-              </div>
           </div>
       </div>
   </div>

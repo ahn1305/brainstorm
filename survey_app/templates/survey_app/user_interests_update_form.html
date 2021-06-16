@@ -1,12 +1,13 @@
 {% extends "survey_app/base.html" %}
 {% load crispy_forms_tags %}
 {% block content %}
-    <div class="content-section">
+    <div class="register-container">
         <br>
         <form method="POST">
             {% csrf_token %}
             <fieldset class="form-group">
-                <legend class="border-bottom mb-4">What are you interested in ?</legend>
+                <h2>What are you interested in ?</h2>
+                <hr>
                 <br>
                 <p>Select a topic you are interested in to help us personalize your experience</p>
                 {{ form|crispy }}
