@@ -43,6 +43,7 @@ class ProfileUpdateForm(forms.ModelForm):
                   'website_url': forms.TextInput(attrs={'placeholder':'Eg: www.example.com'}),
                   'instagram_username': forms.TextInput(attrs={'placeholder':'Eg: broken_boy_s_13d_05'}),
                   'github_username': forms.TextInput(attrs={'placeholder':'Eg: ahn1305'}),
-                  'linkedin_username': forms.TextInput(attrs={'placeholder':'Eg: ashwin-babu-261032202'})
+                  'linkedin_username': forms.TextInput(attrs={'placeholder':'Eg: ashwin-babu-261032202'}),
+                  'twitter_username': forms.TextInput(attrs={'placeholder':'Eg: nave_offcl'})
         
         }

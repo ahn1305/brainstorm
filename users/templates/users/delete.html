@@ -6,7 +6,7 @@
 	<form method="POST">
     <legend class="border-bottom mb-4">Delete Account</legend>
 		{% csrf_token %}
-    <h5>Are you sure you want to delete the account <b>{{ object.username }}<b>?</h5>
+    <h5>Are you sure you want to delete the account <b>{{ request.user }}<b>?</h5>
     <br>
     <button type="submit" class="btn btn-outline-danger">Delete</button>
     <a class="btn btn-outline-secondary" href="{% url 'user-profile' %}">Cancel</a>

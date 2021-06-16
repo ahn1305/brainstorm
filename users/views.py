@@ -166,6 +166,9 @@ def user_login(request):
             elif counter_dict[username] == 5:
                 time_dict[username] = time.time()
                 usr = User.objects.get(username__exact=username) # getting username from db
+                # https://docs.djangoproject.com/en/3.2/ref/models/querysets/#std:fieldlookup-exact
+                #SQL equivalents: SELECT ... WHERE username = username;
+
                 u_email = usr.email # extracting email
                 send_warning_email(u_email) # sending warning email
                 print('we are here')
@@ -277,14 +280,28 @@ def change_password(request):
 #-------------------------------------------------------------------------------------------------------------------------------
 # Delete user view
 
-class UserDeleteView(SuccessMessageMixin,DeleteView):
-    model = User
-    success_message = (f'Account deleted successfully')
-    success_url = reverse_lazy('register')
+# class UserDeleteView(SuccessMessageMixin,DeleteView):
+#     model = User
+#     success_message = (f'Account deleted successfully')
+#     success_url = reverse_lazy('register')
 
-    def delete(self, request, *args, **kwargs):
-        messages.success(self.request, self.success_message)
-        return super().delete(request, *args, **kwargs)
+#     def delete(self, request, *args, **kwargs):
+#         messages.success(self.request, self.success_message)
+#         return super().delete(request, *args, **kwargs)
+
+def delete_user(request, username):
+    user = User.objects.get(username__exact=username)
+    profile = User.objects.filter(username=user.username)
+    if request.method == 'POST':
+        profile.delete()
+        messages.success(request,f'Account deleted successfully')
+        return redirect('home')
+
+        # https://docs.djangoproject.com/en/3.2/ref/models/querysets/#std:fieldlookup-exact
+        #SQL equivalents: SELECT ... WHERE username = username;
+
+    
+    return render(request, 'users/delete.html')
 
 #-------------------------------------------------------------------------------------------------------------------------------
 # Logout view

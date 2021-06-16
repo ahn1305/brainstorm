@@ -107,7 +107,7 @@
                       <h6 class="mb-0">Twitter</h6>
                     </div>
                     <div class="col-sm-9 text-secondary">
-                    	<a href="{{ request.user.profile.twitter_username }}"><b>{{ request.user.profile.twitter_username }}</b></a>
+                    	<a href="https://twitter.com/{{ request.user.profile.twitter_username }}"><b>{{ request.user.profile.twitter_username }}</b></a>
                     </div>
                   </div>
                   
@@ -129,7 +129,7 @@
                       <a class="btn btn-outline-success" href="{% url 'profile' %}">Edit Profile</a>
                       &nbsp;<a class="btn btn-outline-success" href="{% url 'change-password' %}">Change Password</a>
                       <br><br>
-                      <a class="btn btn-outline-success" href="{% url 'account_delete' request.user.pk %}">Delete Account</a>
+                      <a class="btn btn-outline-success" href="{% url 'account_delete' request.user %}">Delete Account</a>
                     </div>
                   </div>
           </div>
