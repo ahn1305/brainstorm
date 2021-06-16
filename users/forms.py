@@ -1,7 +1,7 @@
 from django.contrib.auth import models
 from django.contrib.auth.models import User
 from django import forms
-from django.forms import ModelForm
+from django.forms import ModelForm, widgets
 from django.contrib.auth.forms import UserCreationForm,AuthenticationForm
 from .models import Profile
 
@@ -35,6 +35,14 @@ class UserUpdateForm(forms.ModelForm):
 
 
 class ProfileUpdateForm(forms.ModelForm):
-	class Meta:
-		model = Profile
-		fields = ['image','bio','website_url','instagram_username','facebook_username','twitter_username','github_username','linkedin_username']
+    class Meta:
+        model = Profile
+        fields = ['image', 'bio', 'website_url', 'instagram_username', 'facebook_username', 'twitter_username', 'github_username', 'linkedin_username',]
+        widgets = {
+
+                  'website_url': forms.TextInput(attrs={'placeholder':'Eg: www.example.com'}),
+                  'instagram_username': forms.TextInput(attrs={'placeholder':'Eg: broken_boy_s_13d_05'}),
+                  'github_username': forms.TextInput(attrs={'placeholder':'Eg: ahn1305'}),
+                  'linkedin_username': forms.TextInput(attrs={'placeholder':'Eg: ashwin-babu-261032202'})
+        
+        }
