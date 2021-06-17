@@ -205,7 +205,7 @@ def user_login_verify_view(request):
             code_dict_l[pk] = code_l
             print(code_l)
             #send_email_login(code_l,user.email,user)
-            code_time_l = time.time()
+            code_time_l = time.time() # ifs the time since epoach
         if form.is_valid():
             num = form.cleaned_data.get('number')
             print(num)
