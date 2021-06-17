@@ -79,24 +79,24 @@ def user_register_verify_view(request):
         return redirect(reverse('home'))
     
     form = CodeForm(request.POST or None) # none makes the form loo empty during a get request
-    pk = request.session.get('pk')
+    pk = request.session.get('pk') # get primary from the current session
 
-    global code_dict_r
+    global code_dict_r # calling the global var code_dict_r
 
     
     if pk:
 
-        user = User.objects.get(pk=pk)
+        user = User.objects.get(pk=pk) # getting user from session pk
 
-        if not request.POST:
-            global code_r
-            global code_time_r
-            code_r = id_generator()
+        if not request.POST: # checking if request is not post
+            global code_r # declaring code r as global
+            global code_time_r # declaring code_time_r as global
+            code_r = id_generator() # generating the code
             code_dict_r[pk] = code_r # assigning the otp with pk as key
             print(code_dict_r)
             
             print(code_r)
-            #send_email_register(code_r,user.email,user)
+            #send_email_register(code_r,user.email,user) # sending email
 
             code_time_r = time.time() # storing the time after otp is generated
             
@@ -105,13 +105,13 @@ def user_register_verify_view(request):
             num = form.cleaned_data.get('number')
 
             if code_dict_r[request.session.get('pk')] == num and time.time() - code_time_r < 121: # sub current time from otp gen time, and checking if its less than 2 min
-                login(request, user,backend='axes.backends.AxesBackend')
-                messages.success(request, f'You are logged in successfully')
+                login(request, user,backend='axes.backends.AxesBackend') # if true login
+                messages.success(request, f'You are logged in successfully') # send success msg
                 del code_dict_r[request.session.get('pk')] # deleting the otp of the authenticated user
-                return redirect('user_interests')
+                return redirect('user_interests') # redirect to user interests page
             else:
-                messages.warning(request, f'Enter valid details')
-    return render(request,'users/register_verify.html',{'form':form})
+                messages.warning(request, f'Enter valid details') # if error occurs send error msg
+    return render(request,'users/register_verify.html',{'form':form}) # sending form to template
 
 #-------------------------------------------------------------------------------------------------------------------------------
 # Login view
@@ -187,8 +187,8 @@ code_dict_l = {}
 def user_login_verify_view(request):
     if request.user.is_authenticated:
         return redirect(reverse('home'))
-    form = CodeForm(request.POST or None)
-    pk = request.session.get('pk')
+    form = CodeForm(request.POST or None) # None is returned if get request, else post request
+    pk = request.session.get('pk') # getting session pk
 
     global code_dict_l
     
@@ -231,7 +231,7 @@ def user_login_verify_view(request):
 def profile(request):
     print("we are here at update view")
     if request.method == 'POST':
-        u_form = UserUpdateForm(request.POST, instance=request.user)
+        u_form = UserUpdateForm(request.POST, instance=request.user) # populating form with current data and post data
         p_form = ProfileUpdateForm(request.POST,
                                    request.FILES,
                                    instance=request.user.profile)
@@ -290,12 +290,12 @@ def change_password(request):
 #         return super().delete(request, *args, **kwargs)
 
 def delete_user(request, username):
-    user = User.objects.get(username__exact=username)
-    profile = User.objects.filter(username=user.username)
-    if request.method == 'POST':
-        profile.delete()
-        messages.success(request,f'Account deleted successfully')
-        return redirect('home')
+    user = User.objects.get(username__exact=username) # getting username from the request made
+    profile = User.objects.filter(username=user.username) # filtering the user
+    if request.method == 'POST': # if post
+        profile.delete() # delete the user
+        messages.success(request,f'Account deleted successfully') # success msg
+        return redirect('home') # redirecting to home
 
         # https://docs.djangoproject.com/en/3.2/ref/models/querysets/#std:fieldlookup-exact
         #SQL equivalents: SELECT ... WHERE username = username;
@@ -311,7 +311,7 @@ def user_logout(request):
     time.sleep(2) # waiting for 2 sec
     logout(request) # using django.contrib.auth.logout(), It takes an HttpRequest object and has no return value
     messages.success(request,f'You are logged out successfully') # logout success msg
-    return redirect('login') # redic
+    return redirect('login') # redirect to login page
 
 # https://www.kite.com/python/docs/django.contrib.auth.logout
 
