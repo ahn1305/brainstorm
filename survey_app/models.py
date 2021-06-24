@@ -44,6 +44,9 @@ class user_interests(models.Model):
     def __str__(self):
         return str(self.user)
     
+    class Meta:
+        verbose_name = 'UserInterests'
+    
 
 
 class Code(models.Model):

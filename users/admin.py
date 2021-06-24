@@ -7,6 +7,7 @@ from django.http import HttpResponse
 def user_email(object):
   return object.user.email
 
+
 class ProfileAdmin(admin.ModelAdmin):
 
     list_display = ['id','user',user_email,'bio']
@@ -16,7 +17,7 @@ class ProfileAdmin(admin.ModelAdmin):
         ('Username',{'fields':['user']}),
         ('ProfilePic',{'fields':['image']}),
         ('About',{'fields':['bio',]}),
-        ('SocialMediaProfile',{'fields':['website_url','instagram_username','facebook_username','twitter_username','github_username','linkedin_username'],
+        ('SocialProfiles',{'fields':['website_url','instagram_username','facebook_username','twitter_username','github_username','linkedin_username'],
         'classes':['collapse']}),
     ]
     
