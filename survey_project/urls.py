@@ -23,6 +23,8 @@ from django.contrib.auth import views as auth_views
 
 
 admin.site.site_header = 'Brainstorm Admin Login'
+admin.site.site_title = 'Brainstrom Admin Area'
+admin.site.index_title = "Welcome to Brainstrom Admin Area"
 
 
 urlpatterns = [

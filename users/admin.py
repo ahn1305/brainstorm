@@ -4,8 +4,12 @@ import csv
 from django.http import HttpResponse
 # Register your models here.
 
+def user_email(object):
+  return object.user.email
+
 class ProfileAdmin(admin.ModelAdmin):
-    list_display = ['id','user','bio']
+
+    list_display = ['id','user',user_email,'bio']
     list_display_links = ['id','user']
     ordering = ['id']
     fieldsets = [
