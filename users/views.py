@@ -182,7 +182,10 @@ def user_login(request):
 #-------------------------------------------------------------------------------------------------------------------------------
 # Login verify view
 
+
+
 code_dict_l = {}
+@login_required
 def user_login_verify_view(request):
     if request.user.is_authenticated:
         return redirect(reverse('home'))
