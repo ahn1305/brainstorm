@@ -44,9 +44,7 @@ class user_interests(models.Model):
     def __str__(self):
         return str(self.user)
     
-    class Meta:
-        ordering = ['id']
-    
+
 
 class Code(models.Model):
     number = models.CharField(max_length=6)

@@ -7,6 +7,7 @@ from django.http import HttpResponse
 class ProfileAdmin(admin.ModelAdmin):
     list_display = ['id','user','bio']
     list_display_links = ['id','user']
+    ordering = ['id']
     fieldsets = [
         ('Username',{'fields':['user']}),
         ('ProfilePic',{'fields':['image']}),
@@ -14,6 +15,8 @@ class ProfileAdmin(admin.ModelAdmin):
         ('SocialMediaProfile',{'fields':['website_url','instagram_username','facebook_username','twitter_username','github_username','linkedin_username'],
         'classes':['collapse']}),
     ]
+    
+
     actions = ["export_as_csv"]
 
     def export_as_csv(self, request, queryset):

@@ -8,6 +8,8 @@ from .models import user_interests,Code,Survey, Question, Option, Submission, An
 class UserInterestsAdmin(admin.ModelAdmin):
     list_display = ['id','user','sports','music','science']
     list_display_links = ['id','user']
+    ordering = ['id']
+
     fieldsets = [
         ('Username',{'fields':['user']}),
         ('Interests',{'fields':['sports','music','science']}),
