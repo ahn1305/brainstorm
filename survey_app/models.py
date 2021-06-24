@@ -43,7 +43,10 @@ class user_interests(models.Model):
 
     def __str__(self):
         return str(self.user)
-
+    
+    class Meta:
+        ordering = ['id']
+    
 
 class Code(models.Model):
     number = models.CharField(max_length=6)
@@ -56,12 +59,18 @@ class Survey(models.Model):
     creator = models.ForeignKey(User, on_delete=models.CASCADE)
     created_at = models.DateTimeField(default=timezone.now)
 
+    def __str__(self):
+        return (self.title)
+
 
 class Question(models.Model):
     """A question in a survey"""
 
     survey = models.ForeignKey(Survey, on_delete=models.CASCADE)
     prompt = models.CharField(max_length=128)
+
+    def __str__(self):
+        return(self.prompt)
 
 
 class Option(models.Model):
@@ -70,6 +79,9 @@ class Option(models.Model):
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
     text = models.CharField(max_length=128)
 
+    def __str__(self):
+        return(self.text)
+
 
 class Submission(models.Model):
     """A set of answers a survey's questions."""
@@ -77,9 +89,15 @@ class Submission(models.Model):
     created_at = models.DateTimeField(default=timezone.now)
     is_complete = models.BooleanField(default=False)
 
+    def __str__(self):
+        return str(self.survey)
+
 
 class Answer(models.Model):
     """An answer a survey's questions."""
 
     submission = models.ForeignKey(Submission, on_delete=models.CASCADE)
     option = models.ForeignKey(Option, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return str(self.option)

@@ -27,7 +27,7 @@ SECRET_KEY = 'nqp525%myeg^bkz_zjw*8634anjrh8@*_cll@1nm&ej89*bk58'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost','127.0.0.1','brainstrom.app.vtxhub.com']
+ALLOWED_HOSTS = ['localhost','127.0.0.1','brainstrom.app.vtxhub.com','192.168.1.100']
 
 
 # Application definition
@@ -132,6 +132,7 @@ AUTHENTICATION_BACKENDS = (
     # Django ModelBackend is the default authentication backend.
     'django.contrib.auth.backends.ModelBackend',
 )
+
 
 # Internationalization
 # https://docs.djangoproject.com/en/2.1/topics/i18n/

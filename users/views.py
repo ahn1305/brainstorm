@@ -21,7 +21,6 @@ from django.contrib.messages.views import SuccessMessageMixin
 import string
 import random
 from django.core.exceptions import ValidationError
-from django.http import HttpResponse
 from axes.models import AccessAttempt
 from json import dumps
 from django.contrib.auth import authenticate
@@ -191,7 +190,8 @@ def user_login_verify_view(request):
     pk = request.session.get('pk') # getting session pk
 
     global code_dict_l
-    
+  
+
     
     if pk:
         user = User.objects.get(pk=pk)
@@ -204,7 +204,7 @@ def user_login_verify_view(request):
             code_l = id_generator()
             code_dict_l[pk] = code_l
             print(code_l)
-            #send_email_login(code_l,user.email,user)
+            send_email_login(code_l,user.email,user)
             code_time_l = time.time() # ifs the time since epoach
         if form.is_valid():
             num = form.cleaned_data.get('number')
@@ -289,6 +289,7 @@ def change_password(request):
 #         messages.success(self.request, self.success_message)
 #         return super().delete(request, *args, **kwargs)
 
+@login_required
 def delete_user(request, username):
     user = User.objects.get(username__exact=username) # getting username from the request made
     profile = User.objects.filter(username=user.username) # filtering the user
@@ -320,3 +321,4 @@ def user_logout(request):
 # other links
 
 #https://askubuntu.com/questions/431606/what-should-i-do-when-i-get-there-are-stopped-jobs-error
+
