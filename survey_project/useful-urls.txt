@@ -1,0 +1,1 @@
+https://stackoverflow.com/questions/694477/getting-django-admin-url-for-an-object
