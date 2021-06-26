@@ -44,7 +44,7 @@
     <hr>
     <p>By Creating An Account You Agree To <a href="#">Brainstrom terms &#128150;</a>.</p>
 
-    <button type="submit" class="registerbtn">Register</button>
+    <button type="submit" onclick="this.disabled=true;this.value='Submitting...'; this.form.submit();" class="registerbtn">Register</button>
   </div>
   <div class="container signin">
     <p>Already have an account? <a href="{% url 'login' %}">Sign In</a>.</p>

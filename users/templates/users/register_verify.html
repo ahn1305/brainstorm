@@ -16,7 +16,7 @@
     <div class="invalid-feedback">{{form.number.errors}}</div>
     <hr>
 
-    <button type="submit" class="registerbtn">Verify</button>
+    <button type="submit" onclick="this.disabled=true;this.value='Submitting...'; this.form.submit();" class="registerbtn">Verify</button>
   </div>
 
 </form>

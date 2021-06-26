@@ -13,7 +13,7 @@
                 {{ form|crispy }}
             </fieldset>
             <div class="form-group">
-                <button class="btn btn-outline-info" type="submit">Update</button>
+                <button class="btn btn-outline-info" onclick="this.disabled=true;this.value='Submitting...'; this.form.submit();" type="submit">Update</button>
                 <a class="btn btn-outline-danger" href="{% url 'user-profile' %}">Cancel</a>
             </div>
         </form>
