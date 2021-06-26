@@ -44,4 +44,5 @@ class ProfileAdmin(admin.ModelAdmin):
 
 # Adding export as csv option django admin: https://books.agiliq.com/projects/django-admin-cookbook/en/latest/export.html
 
+
 admin.site.register(Profile,ProfileAdmin)

@@ -75,7 +75,7 @@ def send_email_login(user_code,email,usr):
     <p style="font-size:1.1em">Hi {},</p>
     <p>Use the following OTP to complete your Login. 
     <br>OTP is valid for 2 minutes</p>
-    <h2 style="background: #00466a;width: max-content;padding: 0 10px;color: #fff;border-radius: 4px;">{}</h2>
+    <h2 style="background: #00466a;width: max-content;padding: 0 10px;color: #fff;border-radius: 4px;">B-{}</h2>
 
 	<p>If you didn't request this, you can ignore this email or let us know.</p>
     <p style="font-size:0.9em;">Regards,<br />Team Brainstrom</p>

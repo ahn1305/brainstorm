@@ -185,8 +185,8 @@ def user_login(request):
 
 
 code_dict_l = {}
-@login_required
 def user_login_verify_view(request):
+        
     if request.user.is_authenticated:
         return redirect(reverse('home'))
     form = CodeForm(request.POST or None) # None is returned if get request, else post request
@@ -196,9 +196,9 @@ def user_login_verify_view(request):
   
 
     
-    if pk:
+    if pk and not request.user.is_authenticated:
         user = User.objects.get(pk=pk)
-        #code_l = None
+        # code_l = None
        
 
         if not request.POST:
@@ -223,6 +223,8 @@ def user_login_verify_view(request):
 
             else:
                 messages.warning(request, f'Enter valid otp!')
+    else:
+        return redirect(reverse('home'))
 
            
     return render(request,'users/login_verify.html',{'form':form,'code':code_l})
