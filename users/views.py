@@ -190,6 +190,7 @@ def user_login_verify_view(request):
         
     if request.user.is_authenticated:
         return redirect(reverse('home'))
+        
     
 
     form = CodeForm(request.POST or None) # None is returned if get request, else post request
