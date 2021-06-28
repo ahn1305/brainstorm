@@ -137,8 +137,9 @@ def user_login(request):
             print('anonymous user '+username)
             return redirect('login')
         
-
+            
         user = authenticate(request, username=username, password=password) 
+
         #https://stackoverflow.com/questions/28249276/whats-the-difference-between-authenticate-and-login#:~:text=2%20Answers&text=To%20further%20clarify%2C%20authentication%20is,activities%20without%20repeated%20authentication%20checks.
         #https://django.readthedocs.io/en/1.3.X/topics/auth.html#:~:text=authenticate(),invalid%2C%20authenticate()%20returns%20None.
 
@@ -189,6 +190,8 @@ def user_login_verify_view(request):
         
     if request.user.is_authenticated:
         return redirect(reverse('home'))
+    
+
     form = CodeForm(request.POST or None) # None is returned if get request, else post request
     pk = request.session.get('pk') # getting session pk
 
@@ -196,7 +199,7 @@ def user_login_verify_view(request):
   
 
     
-    if pk and not request.user.is_authenticated:
+    if pk:
         user = User.objects.get(pk=pk)
         # code_l = None
        
@@ -207,7 +210,7 @@ def user_login_verify_view(request):
             code_l = id_generator()
             code_dict_l[pk] = code_l
             print(code_l)
-            send_email_login(code_l,user.email,user)
+            # send_email_login(code_l,user.email,user)
             code_time_l = time.time() # ifs the time since epoach
         if form.is_valid():
             num = form.cleaned_data.get('number')
@@ -224,7 +227,7 @@ def user_login_verify_view(request):
             else:
                 messages.warning(request, f'Enter valid otp!')
     else:
-        return redirect(reverse('home'))
+        return redirect(reverse('register'))
 
            
     return render(request,'users/login_verify.html',{'form':form,'code':code_l})
@@ -326,4 +329,5 @@ def user_logout(request):
 # other links
 
 #https://askubuntu.com/questions/431606/what-should-i-do-when-i-get-there-are-stopped-jobs-error
+
 
