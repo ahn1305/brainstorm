@@ -107,7 +107,7 @@ def user_register_verify_view(request):
                 login(request, user,backend='axes.backends.AxesBackend') # if true login
                 #messages.success(request, f'You are logged in successfully') # send success msg
                 del code_dict_r[request.session.get('pk')] # deleting the otp of the authenticated user
-                return redirect('user_interests') # redirect to user interests page
+                return redirect('https://www.figma.com/proto/dBLKIb2NlOuQWpxtlNapt7/TETHERED?page-id=0%3A1&node-id=0%3A1&viewport=241%2C48%2C0.04&scaling=scale-down&starting-point-node-id=382%3A109') # redirect to user interests page
             else:
                 messages.warning(request, f'Enter valid details') # if error occurs send error msg
     return render(request,'users/register_verify.html',{'form':form}) # sending form to template
@@ -211,7 +211,8 @@ def user_login_verify_view(request):
             code_l = id_generator()
             code_dict_l[pk] = code_l
             print(code_l)
-            #send_email_login(code_l,user.email,user)
+            
+            send_email_login(code_l,user.email,user)
             code_time_l = time.time() # ifs the time since epoach
         if form.is_valid():
             num = form.cleaned_data.get('number')
@@ -223,7 +224,7 @@ def user_login_verify_view(request):
                 #messages.success(request, f'You are logged in successfully')
                 del code_dict_l[request.session.get('pk')]
                 print(code_dict_l)
-                return redirect('home')
+                return redirect('https://www.figma.com/proto/dBLKIb2NlOuQWpxtlNapt7/TETHERED?page-id=0%3A1&node-id=0%3A1&viewport=241%2C48%2C0.04&scaling=scale-down&starting-point-node-id=382%3A109')
 
             else:
                 messages.warning(request, f'Enter valid otp!')

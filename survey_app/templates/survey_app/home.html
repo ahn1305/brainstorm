@@ -25,8 +25,24 @@
                 <input class="search-bar" type="text" placeholder="Search mentors, Pitch, profiles...">
                 <img src="{% static 'survey_app/images/search.png' %}" id="search-icon">
             </div>
-			{% if request.user.is_authenticated %}
-            <a>Community Feed</a>
+			{% if not request.user.is_authenticated %}
+            <a href="{% url 'register' %}">Community Feed</a>
+            <a href="{% url 'register' %}">Mentorspot</a>
+            <a href="{% url 'register' %}">Pitch Place</a>
+            <a href="{% url 'register' %}">Tether Room</a>
+			
+            {% if request.user.is_authenticated %}
+            <a href="{% url 'user-profile' %}">
+                <button id="profile">
+                    <span class="material-icons-outlined">
+                        account_circle
+                    </span>
+                    PROFILE
+                </button>
+            </a>
+            {% endif %}
+			{% else %}
+               <a>Community Feed</a>
             <a>Mentorspot</a>
             <a>Pitch Place</a>
             <a>Tether Room</a>
@@ -39,7 +55,7 @@
                     PROFILE
                 </button>
             </a>
-			{% endif %}
+            {% endif %}
 			{% if not request.user.is_authenticated %}
             <a href="{% url 'register' %}"><button id="Sign-in">SIGN UP</button></a>
 			<a href="{% url 'login' %}"><button id="Sign-in">SIGN IN</button></a>
