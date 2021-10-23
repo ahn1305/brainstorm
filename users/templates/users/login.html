@@ -4,7 +4,8 @@
 
 
 
-
+<a href="{% url 'home' %}"><button class="btn btn-outline-danger"><b><i class="fas fa-home"></i>&nbsp;Back to home</b></button></a>
+<br><br>
 <form method = "POST" action="">
     {% csrf_token %}
   <div class="register-container">
@@ -12,7 +13,7 @@
     <hr>
     <!--{{form|crispy}}-->
   
-    <label for="username"><b>Brainstrom Id*</b></label>
+    <label for="username"><b>Tethered Id*</b></label>
     {{form.username}}
     {{form.username.errors}}
     <div class="invalid-feedback">{{form.username.errors}}</div>

@@ -1,4 +1,4 @@
-
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
 .logoutdiv {
     margin: 10px;
   }
@@ -34,7 +34,7 @@ margin:0;
 @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@500&display=swap');
 
 html,body {
-  background:  #f2f2f2;
+  background:  #FBECEB;
   }
 
 .account-img {
@@ -94,7 +94,9 @@ html,body {
 
 .register-container {
     padding: 16px;
-    background-color: #ccffcc;
+    background-color: #FCD8D4;
+    font-family: 'Roboto', sans-serif;
+
   }
   input[type=text], input[type=password], input[type=email], input[type=textarea] {
     width: 100%;
@@ -116,7 +118,7 @@ html,body {
   }
   
   .registerbtn {
-    background-color: #4CAF50;
+    background-color: #EEB6B0;
     color: white;
     padding: 16px 20px;
     margin: 8px 0;
@@ -124,6 +126,7 @@ html,body {
     cursor: pointer;
     width: 100%;
     opacity: 0.9;
+    font-weight: bold;
   }
   
   .registerbtn:hover {
@@ -135,7 +138,7 @@ html,body {
   }
   
   .signin {
-    background-color: #ccffcc;
+    background-color: #FCD8D4;
     text-align: center;
   }
 

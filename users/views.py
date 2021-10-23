@@ -95,7 +95,7 @@ def user_register_verify_view(request):
             print(code_dict_r)
             
             print(code_r)
-            #send_email_register(code_r,user.email,user) # sending email
+            send_email_register(code_r,user.email,user) # sending email
 
             code_time_r = time.time() # storing the time after otp is generated
             
@@ -105,7 +105,7 @@ def user_register_verify_view(request):
 
             if code_dict_r[request.session.get('pk')] == num and time.time() - code_time_r < 121: # sub current time from otp gen time, and checking if its less than 2 min
                 login(request, user,backend='axes.backends.AxesBackend') # if true login
-                messages.success(request, f'You are logged in successfully') # send success msg
+                #messages.success(request, f'You are logged in successfully') # send success msg
                 del code_dict_r[request.session.get('pk')] # deleting the otp of the authenticated user
                 return redirect('user_interests') # redirect to user interests page
             else:
@@ -211,7 +211,7 @@ def user_login_verify_view(request):
             code_l = id_generator()
             code_dict_l[pk] = code_l
             print(code_l)
-            # send_email_login(code_l,user.email,user)
+            #send_email_login(code_l,user.email,user)
             code_time_l = time.time() # ifs the time since epoach
         if form.is_valid():
             num = form.cleaned_data.get('number')
@@ -220,7 +220,7 @@ def user_login_verify_view(request):
 
             if code_dict_l[request.session.get('pk')] == num and time.time() - code_time_l < 121:
                 login(request, user, backend='django.contrib.auth.backends.ModelBackend')
-                messages.success(request, f'You are logged in successfully')
+                #messages.success(request, f'You are logged in successfully')
                 del code_dict_l[request.session.get('pk')]
                 print(code_dict_l)
                 return redirect('home')
@@ -304,7 +304,7 @@ def delete_user(request, username):
     profile = User.objects.filter(username=user.username) # filtering the user
     if request.method == 'POST': # if post
         profile.delete() # delete the user
-        messages.success(request,f'Account deleted successfully') # success msg
+        #messages.success(request,f'Account deleted successfully') # success msg
         return redirect('home') # redirecting to home
 
         # https://docs.djangoproject.com/en/3.2/ref/models/querysets/#std:fieldlookup-exact

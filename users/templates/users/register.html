@@ -3,7 +3,8 @@
 {% block content %}
 
 
-
+<a href="{% url 'home' %}"><button class="btn btn-outline-danger"><b><i class="fas fa-home"></i>&nbsp;Back to home</b></button></a>
+<br><br>
 <form method = "POST" action="">
     {% csrf_token %}
     
@@ -42,7 +43,7 @@
 
 
     <hr>
-    <p>By Creating An Account You Agree To <a href="#">Brainstrom terms &#128150;</a>.</p>
+    <p>By Creating An Account You Agree To <a href="#">Tethered terms &#128150;</a>.</p>
 
     <button type="submit" onclick="this.disabled=true;this.value='Submitting...'; this.form.submit();" class="registerbtn">Register</button>
   </div>
